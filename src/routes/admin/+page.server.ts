@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -20,7 +21,7 @@ export const actions = {
 		const form = await request.formData();
 		const password = form.get('password') as string;
 
-		if (password !== (process.env.ADMIN_PASSWORD ?? 'changeme')) {
+		if (password !== (env.ADMIN_PASSWORD ?? 'changeme')) {
 			return fail(401, { error: 'Invalid password' });
 		}
 

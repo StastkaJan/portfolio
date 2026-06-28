@@ -3,8 +3,9 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      - ADMIN_PASSWORD=changeme
       - NODE_ENV=production
       - ORIGIN=http://localhost:3000
     volumes:
