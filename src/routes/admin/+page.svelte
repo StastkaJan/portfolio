@@ -14,11 +14,8 @@
 
 	type Tab = 'hero' | 'about' | 'experience' | 'projects' | 'skills';
 	let activeTab: Tab = $state('hero');
-	let portfolio: PortfolioData = $state(structuredClone(data.data ?? {} as PortfolioData));
-
-	$effect(() => {
-		if (data.data) portfolio = structuredClone(data.data);
-	});
+	// svelte-ignore state_referenced_locally
+	let portfolio: PortfolioData = $state(data.data);
 
 	const tabs: { id: Tab; label: string }[] = [
 		{ id: 'hero', label: 'Hero' },
