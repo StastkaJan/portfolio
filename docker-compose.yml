@@ -6,6 +6,7 @@ services:
     environment:
       - ADMIN_PASSWORD=changeme
       - NODE_ENV=production
+      - ORIGIN=http://localhost:3000
     volumes:
       - ./content:/app/content
     restart: unless-stopped
