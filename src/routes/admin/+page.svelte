@@ -16,6 +16,10 @@
 	let activeTab: Tab = $state('hero');
 	let portfolio: PortfolioData = $state(structuredClone(data.data ?? {} as PortfolioData));
 
+	$effect(() => {
+		if (data.data) portfolio = structuredClone(data.data);
+	});
+
 	const tabs: { id: Tab; label: string }[] = [
 		{ id: 'hero', label: 'Hero' },
 		{ id: 'about', label: 'About' },
