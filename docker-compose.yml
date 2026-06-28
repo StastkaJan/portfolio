@@ -1,0 +1,11 @@
+services:
+  portfolio:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - ADMIN_PASSWORD=changeme
+      - NODE_ENV=production
+    volumes:
+      - ./content:/app/content
+    restart: unless-stopped

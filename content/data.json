@@ -1,0 +1,87 @@
+{
+  "hero": {
+    "name": "Jan Šťastka",
+    "title": "Full Stack Developer",
+    "subtitle": "Software Integration Specialist",
+    "description": "Software Engineer at R2B2 · Full Stack Developer focused on React architecture, ad tech infrastructure, and frontend performance.",
+    "email": "jan.stastka12@gmail.com",
+    "github": "",
+    "linkedin": "https://www.linkedin.com/in/jan-%C5%A1%C5%A5%C3%A1stka-0a3845224/"
+  },
+  "about": "I am a Full Stack Developer and Software Integration Specialist focused on frontend performance, React architecture, and ad tech infrastructure. Currently at R2B2 as a Software Engineer, I own React components and E2E tests, support custom web apps for AYM & Caroda, and drive platform merges. Previously at Avon for 3+ years, I built and published web platforms across CZ/SK markets, redesigned homepages, relaunched the customer club with Svelte, and automated export pipelines that cut a 2-day process down to 1 hour.",
+  "experience": [
+    {
+      "id": "r2b2",
+      "company": "R2B2 Ad monetization partner",
+      "role": "Software Engineer",
+      "period": "May 2024 – Present",
+      "location": "Praha, Czechia · Hybrid",
+      "description": "Responsibilities: Custom web app support (AYM & Caroda) · Ensuring ad script delivery and quality · Main owner of React components & E2E tests · Collaboration on platforms merge (R2B2 & Caroda).\n\nAchievements: Finished ongoing redesign · Rework from React Table to TanStack Table · Replace drag & drop and date picker libraries · Upgrade React from v16 to v18 & prepare for v19 · Migration from Timescale to ClickHouse · Reduce ad delivery script size by ~10% gzip (~30% raw) · Automate ad placement creation in Caroda.",
+      "skills": ["TypeScript", "React", "TanStack", "ClickHouse", "Playwright"]
+    },
+    {
+      "id": "avon-publisher-ft",
+      "company": "Avon",
+      "role": "Web Publisher",
+      "period": "Sep 2022 – Apr 2024",
+      "location": "Praha · Full-time",
+      "description": "Responsibilities: Content controller of platforms (MAS CZ/SK) · Web publisher and frontend developer of MAS CZ/SK · Web optimization · Overseeing Content & Campaign setup for avon.cz, avon.sk · Creation of web pages.\n\nAchievements: Built components for Avon's platforms (address validation, product carousel, promo code section) using HTML, CSS, JS, GTM, Dynamic Yield · Menu & small components on avon.cz · Anew product page · Valentyne's product page · Christmas gift finder.",
+      "skills": ["HTML", "CSS", "JavaScript", "GTM", "Dynamic Yield"]
+    },
+    {
+      "id": "avon-tester",
+      "company": "Avon",
+      "role": "Key Tester & Content Controller & Incidents Manager",
+      "period": "Oct 2020 – Aug 2022",
+      "location": "Czechia · Part-time",
+      "description": "Responsibilities: Content controller of platforms (MAB CZ, GI3 SK, NOEL CZ/SK, MAO CZ/SK) · UAT testing across avon.cz, avon.sk, AvonON app, Grow app, Digital brochure, Avon Rewards, Loyalty Club · Incidents management & PROD Smoke/Sanity tests · Participation in Digital Projects (MAB, GI3, MAO Avon Rewards, Grow web).\n\nAchievements: Homepage redesign for avon.cz & avon.sk using HTML, CSS, JS · Customer club relaunch using Svelte · Innovation of processes — CSV export from 2 days to 1 hour, semi-automated product validation between platforms, user-friendly NOEL exports (JSON).",
+      "skills": ["HTML", "CSS", "JavaScript", "Svelte", "UAT testing"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "trucking",
+      "title": "Šťástka Autodoprava",
+      "description": "Full redesign of a WordPress-based website for a trucking company based in Liberec. Custom content, fleet overview, and basic SEO optimization.",
+      "tech": ["WordPress", "HTML", "CSS", "SEO"],
+      "date": "Jan 2025 – May 2025",
+      "url": "https://www.liberec-autodoprava.cz/",
+      "github": "",
+      "image": "/project-autodoprava.jpg"
+    }
+  ],
+  "coreStack": [
+    { "name": "HTML",            "level": 5 },
+    { "name": "CSS",             "level": 5 },
+    { "name": "TypeScript",      "level": 5 },
+    { "name": "React",           "level": 5 },
+    { "name": "Svelte",          "level": 4 },
+    { "name": "Node.js",         "level": 4 },
+    { "name": "SQL",             "level": 4 },
+    { "name": "PHP",             "level": 4 },
+    { "name": "Playwright",      "level": 4 }
+  ],
+  "skills": [
+    {
+      "category": "Frontend",
+      "items": ["SASS", "Responzivní design", "UX", "Web Vitals", "Technické SEO", "Google Tag Manager", "Google Search Console", "Vue.js", "Nuxt", "Next.js"]
+    },
+    {
+      "category": "Backend & Data",
+      "items": ["Express.js", "REST API", "GraphQL", "MySQL", "PostgreSQL", "MongoDB", "Clickhouse", "Datové modelování", "XML", "JSON", "AJAX", "RegExp"]
+    },
+    {
+      "category": "Testing & Quality",
+      "items": ["Playwright", "Cypress.io", "Jest", "UAT testování", "Automatizované testování", "ESLint", "Prettier"]
+    },
+    {
+      "category": "Tools & Platforms",
+      "items": ["Git", "NPM", "Docker", "Azure cloud", "WordPress", "Figma", "Jira", "Confluence", "Trello", "Asana", "Java", "Python"]
+    }
+  ],
+  "languages": [
+    { "name": "Czech",   "level": "Native" },
+    { "name": "English", "level": "Professional" },
+    { "name": "German",  "level": "Limited" }
+  ]
+}
