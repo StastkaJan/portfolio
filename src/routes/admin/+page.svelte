@@ -14,7 +14,7 @@
 
 	type Tab = 'hero' | 'about' | 'experience' | 'projects' | 'skills';
 	let activeTab: Tab = $state('hero');
-	let portfolio: PortfolioData = $derived(data.data);
+	let portfolio: PortfolioData = $state(structuredClone(data.data ?? {} as PortfolioData));
 
 	const tabs: { id: Tab; label: string }[] = [
 		{ id: 'hero', label: 'Hero' },
@@ -110,7 +110,30 @@
 		max-width: 360px;
 
 		h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; }
+
 		form { display: flex; flex-direction: column; gap: 1rem; }
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 0.4rem;
+			font-size: 0.8rem;
+			font-weight: 500;
+			color: var(--text-muted);
+		}
+
+		input {
+			background: var(--bg);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-sm);
+			padding: 0.6rem 0.75rem;
+			color: var(--text);
+			font-size: 0.875rem;
+			transition: border-color var(--transition);
+			width: 100%;
+
+			&:focus { outline: none; border-color: var(--accent); }
+		}
 	}
 
 	aside {
