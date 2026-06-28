@@ -4,8 +4,10 @@
 
 <section class="editor-section">
 	<h2>About</h2>
-	<label class="full">
-		About text
-		<textarea rows="8" bind:value={about}></textarea>
-	</label>
+	<div class="fields">
+		<label class="full">
+			About text
+			<textarea rows="12" bind:value={about}></textarea>
+		</label>
+	</div>
 </section>
