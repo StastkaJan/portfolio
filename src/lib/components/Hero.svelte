@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { HeroData } from '$lib/types';
 	import { getInitials } from '$lib/utils';
+	import LinkedIn from './icons/LinkedIn.svelte';
+	import GitHub from './icons/GitHub.svelte';
 
 	let { hero }: { hero: HeroData } = $props();
 	let imgFailed = $state(false);
@@ -21,14 +23,14 @@
 			<div class="ctas">
 				<a href="#contact" class="btn btn-primary">Get in touch</a>
 				<a href={hero.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-						<rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-					</svg>
+					<LinkedIn />
 					LinkedIn
 				</a>
 				{#if hero.github}
-					<a href={hero.github} target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
+					<a href={hero.github} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+						<GitHub />
+						GitHub
+					</a>
 				{/if}
 			</div>
 		</div>
