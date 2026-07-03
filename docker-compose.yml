@@ -20,6 +20,8 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
+    dns:
+      - 8.8.8.8
     depends_on:
       - portfolio
     restart: unless-stopped
