@@ -1,0 +1,3 @@
+stastka.dev {
+	reverse_proxy portfolio:3000
+}

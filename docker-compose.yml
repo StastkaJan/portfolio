@@ -1,13 +1,28 @@
 services:
   portfolio:
     build: .
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     env_file:
       - .env
     environment:
       - NODE_ENV=production
-      - ORIGIN=http://localhost:3000
+      - ORIGIN
     volumes:
       - ./content:/app/content
     restart: unless-stopped
+
+  caddy:
+    image: caddy:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on:
+      - portfolio
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
