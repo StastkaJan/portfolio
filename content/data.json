@@ -15,7 +15,7 @@
       "company": "R2B2 Ad monetization partner",
       "role": "Software Engineer",
       "period": "May 2024 – Present",
-      "location": "Praha, Czechia · Hybrid",
+      "location": "Praha · Full-time",
       "description": "Responsibilities: Custom web app support (AYM & Caroda) · Ensuring ad script delivery and quality · Main owner of React components & E2E tests · Collaboration on platforms merge (R2B2 & Caroda).\n\nAchievements: Finished ongoing redesign · Rework from React Table to TanStack Table · Replace drag & drop and date picker libraries · Upgrade React from v16 to v18 & prepare for v19 · Migration from Timescale to ClickHouse · Reduce ad delivery script size by ~10% gzip (~30% raw) · Automate ad placement creation in Caroda.",
       "skills": [
         "TypeScript",
@@ -58,6 +58,22 @@
   ],
   "projects": [
     {
+      "id": "portfolio",
+      "title": "Personal Portfolio",
+      "description": "This site. A self-hosted portfolio with a file-based CMS, built on SvelteKit and Svelte 5. Server-rendered, containerized, and deployed behind Caddy with automatic HTTPS.",
+      "tech": [
+        "SvelteKit",
+        "Svelte 5",
+        "TypeScript",
+        "SCSS",
+        "Docker"
+      ],
+      "date": "Jul 2026",
+      "url": "https://stastka.dev/",
+      "github": "https://github.com/StastkaJan/portfolio",
+      "image": "/project-portfolio.jpg"
+    },
+    {
       "id": "trucking",
       "title": "Šťástka Autodoprava",
       "description": "Full redesign of a WordPress-based website for a trucking company based in Liberec. Custom content, fleet overview, and basic SEO optimization.",
@@ -67,7 +83,7 @@
         "CSS",
         "SEO"
       ],
-      "date": "Jan 2025 – May 2025",
+      "date": "Jan 2020 – May 2020",
       "url": "https://www.liberec-autodoprava.cz/",
       "github": "",
       "image": "/project-autodoprava.jpg"

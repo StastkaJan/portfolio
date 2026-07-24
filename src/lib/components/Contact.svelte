@@ -8,12 +8,9 @@
 
 <section id="contact" class="reveal" use:intersect>
 	<div class="container">
-		<div class="section-header">
-			<h2>Get in <span>Touch</span></h2>
-			<p>Let's build something together</p>
-		</div>
-
-		<div class="card inner">
+		<div class="inner">
+			<span class="section-label">06 — Contact</span>
+			<h2 class="headline">Let's build<br />something together.</h2>
 			<p class="tagline">
 				Whether you have a project in mind or just want to say hi — my inbox is always open.
 			</p>
@@ -44,16 +41,23 @@
 
 <style lang="scss">
 	.inner {
-		max-width: 600px;
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
+		max-width: 640px;
+	}
+
+	.headline {
+		font-family: var(--font-display);
+		font-size: clamp(2.2rem, 5vw, 3.4rem);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+		line-height: 1.02;
+		margin: 1rem 0 1.5rem;
 	}
 
 	.tagline {
 		color: var(--text-muted);
-		font-size: 1.05rem;
+		font-size: 1.1rem;
 		line-height: 1.8;
+		margin-bottom: 2.25rem;
 	}
 
 	.links {

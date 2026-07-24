@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { theme } from '$lib/stores/theme';
-
 	let menuOpen = $state(false);
 
 	const links = [
@@ -11,15 +9,11 @@
 		{ href: '#languages', label: 'Languages' },
 		{ href: '#contact', label: 'Contact' }
 	];
-
-	function toggleTheme() {
-		theme.update((t) => (t === 'dark' ? 'light' : 'dark'));
-	}
 </script>
 
 <header>
 	<nav class="container">
-		<a href="#hero" class="logo">JS</a>
+		<a href="#hero" class="logo">Jan Šťástka<span class="dot">.</span></a>
 
 		<ul class="nav-links" class:open={menuOpen}>
 			{#each links as link}
@@ -29,25 +23,11 @@
 			{/each}
 		</ul>
 
-		<div class="actions">
-			<button class="theme-btn" onclick={toggleTheme} aria-label="Toggle theme">
-				{#if $theme === 'dark'}
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-					</svg>
-				{:else}
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-					</svg>
-				{/if}
-			</button>
-
-			<button class="burger" onclick={() => (menuOpen = !menuOpen)} aria-label="Toggle menu">
-				<span></span>
-				<span></span>
-				<span></span>
-			</button>
-		</div>
+		<button class="burger" onclick={() => (menuOpen = !menuOpen)} aria-label="Toggle menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 	</nav>
 </header>
 
@@ -69,12 +49,16 @@
 	}
 
 	.logo {
+		font-family: var(--font-display);
 		font-size: 1.2rem;
-		font-weight: 800;
-		color: var(--accent);
-		letter-spacing: -0.5px;
+		font-weight: 600;
+		color: var(--text);
+		letter-spacing: -0.03em;
 		margin-right: auto;
-		&:hover { color: var(--accent-light); }
+		transition: color var(--transition);
+
+		.dot { color: var(--accent); }
+		&:hover { color: var(--accent); }
 	}
 
 	.nav-links {
@@ -84,33 +68,13 @@
 
 		a {
 			color: var(--text-muted);
-			font-size: 0.875rem;
+			font-size: 0.85rem;
 			font-weight: 500;
 			padding: 0.4rem 0.7rem;
 			border-radius: var(--radius-sm);
-			transition: all var(--transition);
-			&:hover { color: var(--text); background: var(--bg-card); }
+			transition: color var(--transition);
+			&:hover { color: var(--text); }
 		}
-
-	}
-
-	.actions {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.theme-btn {
-		background: var(--bg-card);
-		border: 1px solid var(--border);
-		border-radius: var(--radius-sm);
-		padding: 0.45rem;
-		color: var(--text);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: all var(--transition);
-		&:hover { border-color: var(--accent); color: var(--accent); }
 	}
 
 	.burger {

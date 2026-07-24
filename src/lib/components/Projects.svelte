@@ -7,13 +7,13 @@
 <section id="projects" class="reveal" use:intersect>
 	<div class="container">
 		<div class="section-header">
-			<h2>Featured <span>Projects</span></h2>
-			<p>Things I've built</p>
+			<span class="section-label">03 — Projects</span>
+			<h2 class="section-title">Selected work</h2>
 		</div>
 
 		<div class="grid">
 			{#each projects as project}
-				<div class="card">
+				<article class="project">
 					{#if project.image}
 						<a
 							href={project.url || undefined}
@@ -28,12 +28,7 @@
 
 					<div class="body">
 						<div class="top">
-							<div class="title-row">
-								<h3>{project.title}</h3>
-								{#if project.date}
-									<span class="date">{project.date}</span>
-								{/if}
-							</div>
+							<h3>{project.title}</h3>
 							<div class="links">
 								{#if project.github}
 									<a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -52,6 +47,10 @@
 							</div>
 						</div>
 
+						{#if project.date}
+							<span class="date">{project.date}</span>
+						{/if}
+
 						<p>{project.description}</p>
 
 						<div class="tech">
@@ -60,7 +59,7 @@
 							{/each}
 						</div>
 					</div>
-				</div>
+				</article>
 			{/each}
 		</div>
 	</div>
@@ -69,99 +68,93 @@
 <style lang="scss">
 	.grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-		gap: 1.5rem;
+		grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+		gap: 2rem;
 	}
 
-	.card {
-		background: var(--bg-card);
+	.project {
+		display: flex;
+		flex-direction: column;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		overflow: hidden;
-		display: flex;
-		flex-direction: column;
-		transition: all var(--transition);
+		transition: border-color var(--transition);
 
 		&:hover {
-			border-color: var(--accent);
-			transform: translateY(-3px);
-			box-shadow: 0 8px 30px rgba(99, 102, 241, 0.12);
-
-			.thumb img {
-				transform: scale(1.04);
-			}
+			border-color: var(--border-strong);
+			.thumb img { transform: scale(1.03); }
 		}
 	}
 
 	.thumb {
 		display: block;
-		width: 100%;
-		aspect-ratio: 16 / 9;
 		overflow: hidden;
+		aspect-ratio: 16 / 10;
+		border-bottom: 1px solid var(--border);
 
 		img {
+			display: block;
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 			object-position: top;
-			transition: transform 0.4s ease;
+			filter: grayscale(0.3);
+			transition: transform 0.5s ease, filter var(--transition);
 		}
 	}
 
+	.project:hover .thumb img { filter: grayscale(0); }
+
 	.body {
-		padding: 1.25rem;
+		padding: 1.75rem;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-		flex: 1;
+		gap: 0.85rem;
 	}
 
 	.top {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		gap: 0.75rem;
-	}
-
-	.title-row {
-		display: flex;
-		flex-direction: column;
-		gap: 0.2rem;
+		gap: 1rem;
 	}
 
 	h3 {
-		font-size: 1rem;
+		font-family: var(--font-display);
 		font-weight: 600;
+		font-size: 1.35rem;
+		letter-spacing: -0.02em;
 	}
 
 	.date {
+		font-family: var(--font-mono);
 		font-size: 0.75rem;
 		color: var(--text-muted);
+		letter-spacing: 0.02em;
 	}
 
 	.links {
 		display: flex;
-		gap: 0.6rem;
+		gap: 0.7rem;
 		flex-shrink: 0;
 
 		a {
 			color: var(--text-muted);
 			display: flex;
-			transition: color var(--transition);
 			&:hover { color: var(--accent); }
 		}
 	}
 
 	p {
 		color: var(--text-muted);
-		font-size: 0.875rem;
-		line-height: 1.7;
-		flex: 1;
+		font-size: 0.92rem;
+		line-height: 1.75;
 	}
 
 	.tech {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.4rem;
+		gap: 0.45rem;
+		margin-top: 0.25rem;
 	}
 </style>
