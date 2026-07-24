@@ -15,6 +15,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd ~/portfolio
-            git pull
+            git fetch origin main
+            git reset --hard origin/main
             docker compose down
             docker compose up --build -d
