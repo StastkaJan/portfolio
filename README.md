@@ -1,6 +1,6 @@
 # Portfolio
 
-Personal portfolio website built with SvelteKit 5, TypeScript, and Sass. Includes a simple CMS admin UI backed by a flat JSON file. Runs in Docker.
+Personal portfolio website built with SvelteKit 5, TypeScript, and Sass. Runs in Docker.
 
 ## Stack
 
@@ -23,14 +23,9 @@ npm run dev
 docker compose up --build
 ```
 
-The app runs on [http://localhost:3000](http://localhost:3000).  
-Admin UI is at [http://localhost:3000/admin](http://localhost:3000/admin).
-
-## CMS
+The app runs on [http://localhost:3000](http://localhost:3000).
 
 Content is stored in `content/data.json` and mounted as a Docker volume so edits persist across container restarts.
-
-Default admin password: `changeme` — override via the `ADMIN_PASSWORD` env variable in `docker-compose.yml`.
 
 ## Project structure
 
@@ -38,13 +33,11 @@ Default admin password: `changeme` — override via the `ADMIN_PASSWORD` env var
 src/
 ├── lib/
 │   ├── components/       # Portfolio sections
-│   │   └── admin/        # CMS editor components
 │   ├── actions/          # Svelte actions (IntersectionObserver)
 │   ├── stores/           # Theme store
 │   └── types.ts
 ├── routes/
-│   ├── +page.svelte      # Portfolio page
-│   └── admin/            # CMS route
+│   └── +page.svelte      # Portfolio page
 content/
 └── data.json             # All portfolio content
 static/                   # Images, favicon
