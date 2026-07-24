@@ -27,7 +27,6 @@
 					<a href={link.href} onclick={() => (menuOpen = false)}>{link.label}</a>
 				</li>
 			{/each}
-			<li><a href="/admin" class="cms-link">CMS</a></li>
 		</ul>
 
 		<div class="actions">
@@ -93,10 +92,6 @@
 			&:hover { color: var(--text); background: var(--bg-card); }
 		}
 
-		.cms-link {
-			color: var(--accent);
-			&:hover { background: rgba(99, 102, 241, 0.1); }
-		}
 	}
 
 	.actions {

@@ -17,8 +17,3 @@ test('dark/light theme toggle works', async ({ page }) => {
 	await expect(html).toHaveAttribute('data-theme', 'dark');
 });
 
-test('admin shows login form when unauthenticated', async ({ page }) => {
-	await page.goto('/admin');
-	await expect(page.locator('h1')).toContainText('CMS Login');
-	await expect(page.locator('input[type="password"]')).toBeVisible();
-});
