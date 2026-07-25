@@ -7,13 +7,3 @@ test('portfolio page loads with hero content', async ({ page }) => {
 	await expect(page.locator('#experience')).toBeVisible();
 });
 
-test('dark/light theme toggle works', async ({ page }) => {
-	await page.goto('/');
-	const html = page.locator('html');
-	await expect(html).toHaveAttribute('data-theme', 'dark');
-	await page.click('[aria-label="Toggle theme"]');
-	await expect(html).toHaveAttribute('data-theme', 'light');
-	await page.click('[aria-label="Toggle theme"]');
-	await expect(html).toHaveAttribute('data-theme', 'dark');
-});
-

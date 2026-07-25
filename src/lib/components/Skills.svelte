@@ -1,136 +1,93 @@
 <script lang="ts">
 	import type { SkillGroup, CoreSkill } from '$lib/types';
-	import { intersect } from '$lib/actions/intersect';
 
-	let { coreStack = [], skills = [] }: { coreStack: CoreSkill[]; skills: SkillGroup[] } = $props();
+	let { coreStack, skills }: { coreStack: CoreSkill[]; skills: SkillGroup[] } = $props();
 </script>
 
-<section id="skills" class="reveal" use:intersect>
-	<div class="container">
-		<div class="section-header">
-			<h2>Skills &amp; <span>Technologies</span></h2>
-			<p>What I work with</p>
-		</div>
-
-		{#if coreStack.length}
-			<div class="core">
-				<p class="core-label">Core Stack</p>
-				<div class="core-grid">
-					{#each coreStack as skill}
-						<div class="core-item">
-							<span class="core-name">{skill.name}</span>
-							<span class="dots" aria-label="{skill.level} out of 5">
-								{#each { length: 5 } as _, i}
-									<span class="dot" class:filled={i < skill.level}></span>
-								{/each}
-							</span>
-						</div>
-					{/each}
-				</div>
-			</div>
-		{/if}
-
-		<div class="grid">
-			{#each skills as group}
-				<div class="group card">
-					<h3>{group.category}</h3>
-					<div class="items">
-						{#each group.items as item}
-							<span class="tag">{item}</span>
-						{/each}
-					</div>
+<div class="skills">
+	<div class="core">
+		<p class="col-label">Core stack</p>
+		<div class="core-list">
+			{#each coreStack as skill}
+				<div class="core-item">
+					<span class="core-name">{skill.name}</span>
+					<span class="bar" aria-label="{skill.level} out of 5">
+						<span class="fill" style="width: {(skill.level / 5) * 100}%"></span>
+					</span>
 				</div>
 			{/each}
 		</div>
-
 	</div>
-</section>
+
+	<div class="groups">
+		{#each skills as group}
+			<div class="group">
+				<h3>{group.category}</h3>
+				<div class="items">
+					{#each group.items as item}
+						<span class="tag">{item}</span>
+					{/each}
+				</div>
+			</div>
+		{/each}
+	</div>
+</div>
 
 <style lang="scss">
-	/* Core stack */
 	.core {
-		background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(168, 85, 247, 0.06));
-		border: 1px solid rgba(99, 102, 241, 0.25);
-		border-radius: var(--radius);
-		padding: 2rem;
-		margin-bottom: 2rem;
+		margin-bottom: 3.5rem;
 	}
 
-	.core-label {
-		font-size: 0.75rem;
-		font-weight: 600;
+	.col-label,
+	h3 {
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 500;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.12em;
 		color: var(--accent);
-		margin-bottom: 1.25rem;
+		margin-bottom: 1.5rem;
 	}
 
-	.core-grid {
+	.core-list {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-		gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1.1rem 2.5rem;
 	}
 
 	.core-item {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		background: var(--bg-card);
-		border: 1px solid var(--border);
-		border-radius: var(--radius-sm);
-		padding: 0.65rem 0.9rem;
-		transition: all var(--transition);
-
-		&:hover {
-			border-color: var(--accent);
-			transform: translateY(-1px);
-		}
-	}
-
-	.core-name {
-		font-size: 0.875rem;
-		font-weight: 600;
-	}
-
-	.dots {
-		display: flex;
-		gap: 4px;
-		flex-shrink: 0;
-	}
-
-	.dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--border);
-		transition: background var(--transition);
-
-		&.filled {
-			background: var(--accent);
-			box-shadow: 0 0 6px rgba(99, 102, 241, 0.5);
-		}
-	}
-
-	/* Other groups */
-	.grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-		gap: 1.25rem;
-		margin-bottom: 1.25rem;
-	}
-
-	.group {
-		display: flex;
-		flex-direction: column;
+		grid-template-columns: 1fr 110px;
+		align-items: center;
 		gap: 1rem;
 	}
 
+	.core-name {
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.bar {
+		height: 4px;
+		background: var(--border);
+		border-radius: 2px;
+		overflow: hidden;
+	}
+
+	.fill {
+		display: block;
+		height: 100%;
+		background: var(--accent);
+		border-radius: 2px;
+	}
+
+	.groups {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem 3rem;
+	}
+
 	h3 {
-		font-size: 0.75rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
 		color: var(--text-muted);
 	}
 
@@ -138,5 +95,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
+	}
+
+	@media (max-width: 768px) {
+		.groups { grid-template-columns: 1fr; gap: 2rem; }
 	}
 </style>
