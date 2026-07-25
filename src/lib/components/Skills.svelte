@@ -4,31 +4,33 @@
 	let { coreStack, skills }: { coreStack: CoreSkill[]; skills: SkillGroup[] } = $props();
 </script>
 
-<div class="core">
-	<p class="col-label">Core stack</p>
-	<div class="core-list">
-		{#each coreStack as skill}
-			<div class="core-item">
-				<span class="core-name">{skill.name}</span>
-				<span class="bar" aria-label="{skill.level} out of 5">
-					<span class="fill" style="width: {(skill.level / 5) * 100}%"></span>
-				</span>
+<div class="skills">
+	<div class="core">
+		<p class="col-label">Core stack</p>
+		<div class="core-list">
+			{#each coreStack as skill}
+				<div class="core-item">
+					<span class="core-name">{skill.name}</span>
+					<span class="bar" aria-label="{skill.level} out of 5">
+						<span class="fill" style="width: {(skill.level / 5) * 100}%"></span>
+					</span>
+				</div>
+			{/each}
+		</div>
+	</div>
+
+	<div class="groups">
+		{#each skills as group}
+			<div class="group">
+				<h3>{group.category}</h3>
+				<div class="items">
+					{#each group.items as item}
+						<span class="tag">{item}</span>
+					{/each}
+				</div>
 			</div>
 		{/each}
 	</div>
-</div>
-
-<div class="groups">
-	{#each skills as group}
-		<div class="group">
-			<h3>{group.category}</h3>
-			<div class="items">
-				{#each group.items as item}
-					<span class="tag">{item}</span>
-				{/each}
-			</div>
-		</div>
-	{/each}
 </div>
 
 <style lang="scss">

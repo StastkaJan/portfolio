@@ -22,7 +22,9 @@
 
 <Header />
 <main>
-	<Hero hero={portfolio.hero} />
+	<Section id="hero" reveal={false}>
+		<Hero hero={portfolio.hero} />
+	</Section>
 
 	<Section id="about" index="01" label="About" title="A bit of context">
 		<About about={portfolio.about} />

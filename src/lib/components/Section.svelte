@@ -8,23 +8,27 @@
 		label,
 		title,
 		large = false,
+		reveal = true,
 		children
 	}: {
 		id: string;
-		index: string;
-		label: string;
-		title: string;
+		index?: string;
+		label?: string;
+		title?: string;
 		large?: boolean;
+		reveal?: boolean;
 		children: Snippet;
 	} = $props();
 </script>
 
-<section {id} class="reveal" use:intersect>
+<section {id} class:reveal use:intersect>
 	<div class="container">
-		<div class="section-header" class:large>
-			<span class="section-label">{index} — {label}</span>
-			<h2 class="section-title">{title}</h2>
-		</div>
+		{#if label && title}
+			<div class="section-header" class:large>
+				<span class="section-label">{index} — {label}</span>
+				<h2 class="section-title">{title}</h2>
+			</div>
+		{/if}
 
 		{@render children()}
 	</div>

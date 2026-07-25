@@ -6,47 +6,35 @@
 	let { hero }: { hero: HeroData } = $props();
 </script>
 
-<section id="hero">
-	<div class="container">
-		<div class="grid">
-			<div class="content">
-				<span class="status"><span class="pulse"></span>{hero.status}</span>
+<div class="grid">
+	<div class="content">
+		<span class="status"><span class="pulse"></span>{hero.status}</span>
 
-				<h1>{hero.name}</h1>
-				<p class="role">{hero.title}</p>
+		<h1>{hero.name}</h1>
+		<p class="role">{hero.title}</p>
 
-				<p class="subtitle">{hero.subtitle}</p>
-				<p class="desc">{hero.description}</p>
+		<p class="subtitle">{hero.subtitle}</p>
+		<p class="desc">{hero.description}</p>
 
-				<div class="ctas">
-					<a href="#contact" class="btn btn-primary">Get in touch</a>
-					<a href={hero.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-						<LinkedIn />
-						LinkedIn
-					</a>
-					<a href={hero.github} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-						<GitHub />
-						GitHub
-					</a>
-				</div>
-			</div>
-
-			<div class="portrait">
-				<img src="/avatar.jpg" alt={hero.name} />
-			</div>
+		<div class="ctas">
+			<a href="#contact" class="btn btn-primary">Get in touch</a>
+			<a href={hero.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+				<LinkedIn />
+				LinkedIn
+			</a>
+			<a href={hero.github} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+				<GitHub />
+				GitHub
+			</a>
 		</div>
 	</div>
-</section>
+
+	<div class="portrait">
+		<img src="/avatar.jpg" alt={hero.name} />
+	</div>
+</div>
 
 <style lang="scss">
-	section {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		padding-top: calc(var(--nav-height) + 3rem);
-		position: relative;
-	}
-
 	.grid {
 		display: grid;
 		grid-template-columns: 1.4fr 0.9fr;

@@ -83,7 +83,7 @@
       "date": "Jul 2026",
       "url": "https://stastka.dev/",
       "github": "https://github.com/StastkaJan/portfolio",
-      "image": "/projects/portfolio.jpg"
+      "image": "/projects/portfolio"
     },
     {
       "id": "trucking",
@@ -98,7 +98,7 @@
       "date": "Jan 2020 – May 2020",
       "url": "https://www.liberec-autodoprava.cz/",
       "github": "",
-      "image": "/projects/autodoprava.jpg"
+      "image": "/projects/autodoprava"
     }
   ],
   "coreStack": [
