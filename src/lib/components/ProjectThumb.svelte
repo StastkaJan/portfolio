@@ -1,29 +1,26 @@
 <script lang="ts">
-	let { src, alt, href }: { src: string; alt: string; href?: string } = $props();
+	let { src, alt }: { src: string; alt: string } = $props();
 </script>
 
-<a {href} target="_blank" rel="noopener noreferrer" class="thumb" aria-label="Visit {alt}">
-	<picture>
-		<source srcset="{src}.webp" type="image/webp" />
-		<img src="{src}.jpg" {alt} />
-	</picture>
-</a>
+<picture>
+	<source srcset="{src}.webp" type="image/webp" />
+	<img src="{src}.jpg" {alt} />
+</picture>
 
 <style lang="scss">
-	.thumb {
+	picture {
 		display: block;
-		overflow: hidden;
-		aspect-ratio: 16 / 10;
-		border-bottom: 1px solid var(--border);
+		width: 100%;
+		height: 100%;
+	}
 
-		img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			object-position: top;
-			filter: grayscale(0.3);
-			transition: transform 0.5s ease, filter var(--transition);
-		}
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		filter: grayscale(0.3);
+		transition: transform 0.5s ease, filter var(--transition);
 	}
 </style>

@@ -10,7 +10,15 @@
 	{#each projects as project}
 		<article class="project">
 			{#if project.image}
-				<ProjectThumb src={project.image} alt={project.title} href={project.url} />
+				<a
+					href={project.url || undefined}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="thumb"
+					aria-label="Visit {project.title}"
+				>
+					<ProjectThumb src={project.image} alt={project.title} />
+				</a>
 			{/if}
 
 			<div class="body">
@@ -61,8 +69,15 @@
 
 		&:hover {
 			border-color: var(--border-strong);
-			:global(.thumb img) { transform: scale(1.03); filter: grayscale(0); }
+			.thumb :global(img) { transform: scale(1.03); filter: grayscale(0); }
 		}
+	}
+
+	.thumb {
+		display: block;
+		overflow: hidden;
+		aspect-ratio: 16 / 10;
+		border-bottom: 1px solid var(--border);
 	}
 
 	.body {
