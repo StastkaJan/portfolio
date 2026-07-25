@@ -1,69 +1,60 @@
 <script lang="ts">
 	import type { ProjectItem } from '$lib/types';
-	import { intersect } from '$lib/actions/intersect';
 	let { projects }: { projects: ProjectItem[] } = $props();
 </script>
 
-<section id="projects" class="reveal" use:intersect>
-	<div class="container">
-		<div class="section-header">
-			<span class="section-label">03 — Projects</span>
-			<h2 class="section-title">Selected work</h2>
-		</div>
+<div class="grid">
+	{#each projects as project}
+		<article class="project">
+			{#if project.image}
+				<a
+					href={project.url || undefined}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="thumb"
+					aria-label="Visit {project.title}"
+				>
+					<picture>
+						<source srcset={project.image.replace(/\.jpg$/, '.webp')} type="image/webp" />
+						<img src={project.image} alt={project.title} />
+					</picture>
+				</a>
+			{/if}
 
-		<div class="grid">
-			{#each projects as project}
-				<article class="project">
-					{#if project.image}
-						<a
-							href={project.url || undefined}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="thumb"
-							aria-label="Visit {project.title}"
-						>
-							<img src={project.image} alt={project.title} />
-						</a>
-					{/if}
-
-					<div class="body">
-						<div class="top">
-							<h3>{project.title}</h3>
-							<div class="links">
-								{#if project.github}
-									<a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-											<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-										</svg>
-									</a>
-								{/if}
-								{#if project.url}
-									<a href={project.url} target="_blank" rel="noopener noreferrer" aria-label="Live site">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-										</svg>
-									</a>
-								{/if}
-							</div>
-						</div>
-
-						{#if project.date}
-							<span class="date">{project.date}</span>
+			<div class="body">
+				<div class="top">
+					<h3>{project.title}</h3>
+					<div class="links">
+						{#if project.github}
+							<a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+								</svg>
+							</a>
 						{/if}
-
-						<p>{project.description}</p>
-
-						<div class="tech">
-							{#each project.tech as t}
-								<span class="tag">{t}</span>
-							{/each}
-						</div>
+						{#if project.url}
+							<a href={project.url} target="_blank" rel="noopener noreferrer" aria-label="Live site">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+								</svg>
+							</a>
+						{/if}
 					</div>
-				</article>
-			{/each}
-		</div>
-	</div>
-</section>
+				</div>
+
+				<span class="date">{project.date}</span>
+
+				<p>{project.description}</p>
+
+				<div class="tech">
+					{#each project.tech as t}
+						<span class="tag">{t}</span>
+					{/each}
+				</div>
+			</div>
+		</article>
+	{/each}
+</div>
 
 <style lang="scss">
 	.grid {

@@ -1,18 +1,16 @@
 <script lang="ts">
 	import type { HeroData } from '$lib/types';
-	import { getInitials } from '$lib/utils';
 	import LinkedIn from './icons/LinkedIn.svelte';
 	import GitHub from './icons/GitHub.svelte';
 
 	let { hero }: { hero: HeroData } = $props();
-	let imgFailed = $state(false);
 </script>
 
 <section id="hero">
 	<div class="container">
 		<div class="grid">
 			<div class="content">
-				<span class="status"><span class="pulse"></span>Open to collaboration</span>
+				<span class="status"><span class="pulse"></span>{hero.status}</span>
 
 				<h1>{hero.name}</h1>
 				<p class="role">{hero.title}</p>
@@ -26,21 +24,15 @@
 						<LinkedIn />
 						LinkedIn
 					</a>
-					{#if hero.github}
-						<a href={hero.github} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-							<GitHub />
-							GitHub
-						</a>
-					{/if}
+					<a href={hero.github} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+						<GitHub />
+						GitHub
+					</a>
 				</div>
 			</div>
 
-			<div class="portrait" class:initials={imgFailed}>
-				{#if !imgFailed}
-					<img src="/avatar.jpg" alt={hero.name} onerror={() => (imgFailed = true)} />
-				{:else}
-					{getInitials(hero.name)}
-				{/if}
+			<div class="portrait">
+				<img src="/avatar.jpg" alt={hero.name} />
 			</div>
 		</div>
 	</div>
@@ -139,18 +131,6 @@
 			height: 100%;
 			object-fit: cover;
 			object-position: center top;
-		}
-
-		&.initials {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background: var(--bg-card);
-			font-family: var(--font-display);
-			font-weight: 600;
-			font-size: 4rem;
-			color: var(--accent);
-			filter: none;
 		}
 	}
 

@@ -3,9 +3,20 @@ export interface HeroData {
 	title: string;
 	subtitle: string;
 	description: string;
+	status: string;
 	email: string;
 	github: string;
 	linkedin: string;
+}
+
+export interface AboutFact {
+	num: string;
+	label: string;
+}
+
+export interface AboutData {
+	text: string;
+	facts: AboutFact[];
 }
 
 export interface ExperienceItem {
@@ -14,7 +25,8 @@ export interface ExperienceItem {
 	role: string;
 	period: string;
 	location: string;
-	description: string;
+	responsibilities: string;
+	achievements: string;
 	skills: string[];
 }
 
@@ -23,7 +35,7 @@ export interface ProjectItem {
 	title: string;
 	description: string;
 	tech: string[];
-	date?: string;
+	date: string;
 	url?: string;
 	github?: string;
 	image?: string;
@@ -46,7 +58,7 @@ export interface Language {
 
 export interface PortfolioData {
 	hero: HeroData;
-	about: string;
+	about: AboutData;
 	experience: ExperienceItem[];
 	projects: ProjectItem[];
 	coreStack: CoreSkill[];

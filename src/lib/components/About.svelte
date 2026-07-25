@@ -1,36 +1,20 @@
 <script lang="ts">
-	import { intersect } from '$lib/actions/intersect';
-	let { about }: { about: string } = $props();
-
-	const facts = [
-		{ num: '4+', label: 'Years of experience' },
-		{ num: '2', label: 'Companies worked at' },
-		{ num: '2', label: 'Languages spoken' },
-		{ num: 'BSc', label: 'Information Technology' }
-	];
+	import type { AboutData } from '$lib/types';
+	let { about }: { about: AboutData } = $props();
 </script>
 
-<section id="about" class="reveal" use:intersect>
-	<div class="container">
-		<div class="section-header">
-			<span class="section-label">01 — About</span>
-			<h2 class="section-title">A bit of context</h2>
-		</div>
+<div class="grid">
+	<p class="text">{about.text}</p>
 
-		<div class="grid">
-			<p class="text">{about}</p>
-
-			<div class="facts">
-				{#each facts as fact}
-					<div class="fact">
-						<span class="num">{fact.num}</span>
-						<span class="label">{fact.label}</span>
-					</div>
-				{/each}
+	<div class="facts">
+		{#each about.facts as fact}
+			<div class="fact">
+				<span class="num">{fact.num}</span>
+				<span class="label">{fact.label}</span>
 			</div>
-		</div>
+		{/each}
 	</div>
-</section>
+</div>
 
 <style lang="scss">
 	.grid {

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Menu from './icons/Menu.svelte';
+
 	let menuOpen = $state(false);
 
 	const links = [
@@ -24,9 +26,7 @@
 		</ul>
 
 		<button class="burger" onclick={() => (menuOpen = !menuOpen)} aria-label="Toggle menu">
-			<span></span>
-			<span></span>
-			<span></span>
+			<Menu />
 		</button>
 	</nav>
 </header>
@@ -79,19 +79,11 @@
 
 	.burger {
 		display: none;
-		flex-direction: column;
-		gap: 5px;
+		align-items: center;
+		justify-content: center;
 		background: none;
 		padding: 0.45rem;
-
-		span {
-			display: block;
-			width: 20px;
-			height: 2px;
-			background: var(--text);
-			border-radius: 2px;
-			transition: all var(--transition);
-		}
+		color: var(--text);
 	}
 
 	@media (max-width: 768px) {

@@ -1,41 +1,30 @@
 <script lang="ts">
 	import type { ExperienceItem } from '$lib/types';
-	import { intersect } from '$lib/actions/intersect';
 	let { experience }: { experience: ExperienceItem[] } = $props();
 </script>
 
-<section id="experience" class="reveal" use:intersect>
-	<div class="container">
-		<div class="section-header">
-			<span class="section-label">02 — Experience</span>
-			<h2 class="section-title">Where I've been</h2>
-		</div>
+<div class="list">
+	{#each experience as item}
+		<article class="item">
+			<div class="meta">
+				<span class="period">{item.period}</span>
+				<span class="company">{item.company}</span>
+				<span class="location">{item.location}</span>
+			</div>
 
-		<div class="list">
-			{#each experience as item}
-				<article class="item">
-					<div class="meta">
-						<span class="period">{item.period}</span>
-						<span class="company">{item.company}</span>
-						<span class="location">{item.location}</span>
-					</div>
-
-					<div class="body">
-						<h3>{item.role}</h3>
-						{#each item.description.split('\n\n') as para}
-							<p>{@html para.replace(/^(Responsibilities|Achievements):/, '<strong>$1:</strong>')}</p>
-						{/each}
-						<div class="skills">
-							{#each item.skills as skill}
-								<span class="tag">{skill}</span>
-							{/each}
-						</div>
-					</div>
-				</article>
-			{/each}
-		</div>
-	</div>
-</section>
+			<div class="body">
+				<h3>{item.role}</h3>
+				<p><strong>Responsibilities:</strong> {item.responsibilities}</p>
+				<p><strong>Achievements:</strong> {item.achievements}</p>
+				<div class="skills">
+					{#each item.skills as skill}
+						<span class="tag">{skill}</span>
+					{/each}
+				</div>
+			</div>
+		</article>
+	{/each}
+</div>
 
 <style lang="scss">
 	.list {
@@ -105,7 +94,7 @@
 		line-height: 1.75;
 		margin-bottom: 1rem;
 
-		:global(strong) {
+		strong {
 			color: var(--text);
 			font-weight: 600;
 		}

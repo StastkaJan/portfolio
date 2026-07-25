@@ -1,14 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getInitials, formatSkills } from './utils';
-
-describe('getInitials', () => {
-	it('extracts initials from full name', () => {
-		expect(getInitials('Jan Šťastka')).toBe('JŠ');
-	});
-	it('handles single name', () => {
-		expect(getInitials('Jan')).toBe('J');
-	});
-});
+import { formatSkills } from './utils';
 
 describe('formatSkills', () => {
 	it('joins with separator', () => {

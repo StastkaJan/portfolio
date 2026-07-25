@@ -1,26 +1,16 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import { intersect } from '$lib/actions/intersect';
 	let { languages }: { languages: Language[] } = $props();
 </script>
 
-<section id="languages" class="reveal" use:intersect>
-	<div class="container">
-		<div class="section-header">
-			<span class="section-label">05 — Languages</span>
-			<h2 class="section-title">Across borders</h2>
+<div class="grid">
+	{#each languages as lang}
+		<div class="item">
+			<span class="name">{lang.name}</span>
+			<span class="level">{lang.level}</span>
 		</div>
-
-		<div class="grid">
-			{#each languages as lang}
-				<div class="item">
-					<span class="name">{lang.name}</span>
-					<span class="level">{lang.level}</span>
-				</div>
-			{/each}
-		</div>
-	</div>
-</section>
+	{/each}
+</div>
 
 <style lang="scss">
 	.grid {
