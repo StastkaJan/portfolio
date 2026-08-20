@@ -74,9 +74,9 @@
       "title": "Luma — Attention Atlas",
       "description": "A day-planning app built around focus blocks, energy tracking, and a day ledger. Plan fewer things, protect the time they need, and finish with a clean record of what moved.",
       "tech": [
-        "SvelteKit",
-        "TypeScript",
-        "Local Storage"
+        "Vinext",
+        "React",
+        "Cloudflare D1"
       ],
       "date": "Aug 2026",
       "url": "https://luma-attention-atlas.vercel.app/",
