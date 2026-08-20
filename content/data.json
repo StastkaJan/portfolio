@@ -86,6 +86,20 @@
       "image": "/projects/portfolio"
     },
     {
+      "id": "luma",
+      "title": "Luma — Attention Atlas",
+      "description": "A day-planning app built around focus blocks, energy tracking, and a day ledger. Plan fewer things, protect the time they need, and finish with a clean record of what moved.",
+      "tech": [
+        "SvelteKit",
+        "TypeScript",
+        "Local Storage"
+      ],
+      "date": "Jul 2026",
+      "url": "https://luma-attention-atlas.vercel.app/",
+      "github": "https://github.com/StastkaJan/luma-attention-atlas",
+      "image": "/projects/luma.jpg"
+    },
+    {
       "id": "trucking",
       "title": "Šťástka Autodoprava",
       "description": "Full redesign of a WordPress-based website for a trucking company based in Liberec. Custom content, fleet overview, and basic SEO optimization.",
