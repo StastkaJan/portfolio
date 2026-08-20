@@ -70,6 +70,20 @@
   ],
   "projects": [
     {
+      "id": "luma",
+      "title": "Luma — Attention Atlas",
+      "description": "A day-planning app built around focus blocks, energy tracking, and a day ledger. Plan fewer things, protect the time they need, and finish with a clean record of what moved.",
+      "tech": [
+        "SvelteKit",
+        "TypeScript",
+        "Local Storage"
+      ],
+      "date": "Aug 2026",
+      "url": "https://luma-attention-atlas.vercel.app/",
+      "github": "https://github.com/StastkaJan/luma-attention-atlas",
+      "image": "/projects/luma"
+    },
+    {
       "id": "portfolio",
       "title": "Personal Portfolio",
       "description": "This site. A self-hosted portfolio with a file-based CMS, built on SvelteKit and Svelte 5. Server-rendered, containerized, and deployed behind Caddy with automatic HTTPS.",
@@ -84,20 +98,6 @@
       "url": "https://stastka.dev/",
       "github": "https://github.com/StastkaJan/portfolio",
       "image": "/projects/portfolio"
-    },
-    {
-      "id": "luma",
-      "title": "Luma — Attention Atlas",
-      "description": "A day-planning app built around focus blocks, energy tracking, and a day ledger. Plan fewer things, protect the time they need, and finish with a clean record of what moved.",
-      "tech": [
-        "SvelteKit",
-        "TypeScript",
-        "Local Storage"
-      ],
-      "date": "Aug 2026",
-      "url": "https://luma-attention-atlas.vercel.app/",
-      "github": "https://github.com/StastkaJan/luma-attention-atlas",
-      "image": "/projects/luma"
     },
     {
       "id": "trucking",
