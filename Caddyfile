@@ -2,6 +2,6 @@ stastka.dev {
 	reverse_proxy portfolio-blue:3000
 }
 
-papuplan.cz {
+meal.stastka.dev {
 	reverse_proxy meal-plan-proxy:80
 }
