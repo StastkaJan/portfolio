@@ -6,8 +6,10 @@ x-portfolio: &portfolio
   env_file:
     - .env
   environment:
-    - NODE_ENV=production
-    - ORIGIN
+    NODE_ENV: production
+    HOST: 0.0.0.0
+    PORT: 3000
+    ORIGIN: ${ORIGIN:-https://stastka.dev}
   volumes:
     - ./content:/app/content
   healthcheck:
