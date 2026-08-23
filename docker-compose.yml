@@ -1,16 +1,28 @@
+x-portfolio: &portfolio
+  build: .
+  image: ${PORTFOLIO_IMAGE:-portfolio:latest}
+  expose:
+    - "3000"
+  env_file:
+    - .env
+  environment:
+    - NODE_ENV=production
+    - ORIGIN
+  volumes:
+    - ./content:/app/content
+  healthcheck:
+    test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+    interval: 2s
+    timeout: 2s
+    retries: 30
+  restart: unless-stopped
+
 services:
-  portfolio:
-    build: .
-    expose:
-      - "3000"
-    env_file:
-      - .env
-    environment:
-      - NODE_ENV=production
-      - ORIGIN
-    volumes:
-      - ./content:/app/content
-    restart: unless-stopped
+  portfolio-blue:
+    <<: *portfolio
+
+  portfolio-green:
+    <<: *portfolio
 
   caddy:
     image: caddy:alpine
@@ -22,8 +34,6 @@ services:
       - caddy_data:/data
     dns:
       - 8.8.8.8
-    depends_on:
-      - portfolio
     restart: unless-stopped
 
 volumes:
