@@ -57,6 +57,7 @@ jobs:
 
             export PORTFOLIO_IMAGE=portfolio:${{ github.sha }}
             docker build -t "$PORTFOLIO_IMAGE" .
+            docker network inspect public-web >/dev/null 2>&1 || docker network create public-web
 
             if grep -q portfolio-blue:3000 "$rollback_config"; then
               candidate=green
@@ -83,12 +84,9 @@ jobs:
             cp Caddyfile.next Caddyfile
             rm Caddyfile.next
 
-            if docker compose ps --status running --services | grep -qx caddy; then
-              docker compose exec -T caddy caddy validate --config /etc/caddy/Caddyfile
-              docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile
-            else
-              docker compose up -d --no-deps caddy
-            fi
+            docker compose up -d --no-deps caddy
+            docker compose exec -T caddy caddy validate --config /etc/caddy/Caddyfile
+            docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile
 
             deployment_succeeded=true
             rm -f "$rollback_config"

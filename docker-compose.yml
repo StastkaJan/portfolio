@@ -36,7 +36,15 @@ services:
       - caddy_data:/data
     dns:
       - 8.8.8.8
+    networks:
+      - default
+      - public-web
     restart: unless-stopped
+
+networks:
+  public-web:
+    name: public-web
+    external: true
 
 volumes:
   caddy_data:
