@@ -43,6 +43,8 @@ jobs:
                 cp "$rollback_config" Caddyfile
                 rm -f Caddyfile.next
                 if [ -n "${candidate_service:-}" ]; then
+                  docker compose ps "$candidate_service" || true
+                  docker compose logs --no-color --tail=100 "$candidate_service" || true
                   docker compose rm -sf "$candidate_service"
                 fi
               fi
