@@ -42,6 +42,7 @@ jobs:
               if [ "$deployment_succeeded" != true ]; then
                 cp "$rollback_config" Caddyfile
                 rm -f Caddyfile.next
+                docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile || true
                 if [ -n "${candidate_service:-}" ]; then
                   docker compose ps "$candidate_service" || true
                   docker compose logs --no-color --tail=100 "$candidate_service" || true
@@ -53,7 +54,6 @@ jobs:
 
             git fetch origin main
             git reset --hard origin/main
-            cp "$rollback_config" Caddyfile
 
             export PORTFOLIO_IMAGE=portfolio:${{ github.sha }}
             docker build -t "$PORTFOLIO_IMAGE" .
