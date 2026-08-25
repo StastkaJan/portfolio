@@ -2,6 +2,10 @@ stastka.dev {
 	reverse_proxy portfolio-blue:3000
 }
 
-meal.stastka.dev {
+papuplan.cz {
 	reverse_proxy meal-plan-proxy:80
+}
+
+meal.stastka.dev {
+	redir https://papuplan.cz{uri} permanent
 }
