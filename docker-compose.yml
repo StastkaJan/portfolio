@@ -33,6 +33,7 @@ services:
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./preview-routes:/etc/caddy/preview-routes:ro
       - caddy_data:/data
     dns:
       - 8.8.8.8

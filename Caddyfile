@@ -9,3 +9,5 @@ papuplan.cz {
 meal.stastka.dev {
 	redir https://papuplan.cz{uri} permanent
 }
+
+import preview-routes/*
