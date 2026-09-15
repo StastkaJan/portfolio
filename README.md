@@ -4,7 +4,7 @@ Personal portfolio website built with SvelteKit 5, TypeScript, and Sass. Runs in
 
 ## Stack
 
-- **SvelteKit 5** with adapter-node
+- **Svelte 5 / SvelteKit** with adapter-static
 - **TypeScript** + **Sass**
 - **Docker** + Docker Compose
 
@@ -25,7 +25,28 @@ docker compose up --build
 
 The app is served through Caddy. Production deploys alternate between blue and green app containers, health-check the candidate, and reload Caddy only after CI and the candidate are successful.
 
-Content is stored in `content/data.json` and mounted as a Docker volume so edits persist across container restarts.
+Content is stored in `content/data.json` and read during the build. Commit content edits and rebuild/redeploy to publish them; changing a file on the running server no longer updates the page. Preserve any server-only content edits in the repository before the first static deployment.
+
+The production image contains only Caddy and the generated `build/` files. It serves HTTP on port 3000, preserving the existing blue/green routing and health-check flow. Node is used only during development and builds. A failed candidate leaves the previous container serving traffic; reverting the migration commit restores the previous Node build if needed.
+
+### Static build and checks
+
+```bash
+npm run check
+npm test
+npm run build
+npx playwright install chromium
+npm run test:e2e
+npm run preview
+```
+
+Browser tests run against the production build and verify metadata, crawler files, and content visibility without JavaScript. CI runs them before deployment.
+
+### SEO
+
+The prerendered page includes its full content, canonical URL, Open Graph and Twitter metadata, and ProfilePage/Person structured data. The existing portrait is used for social previews. `static/robots.txt` advertises `static/sitemap.xml`.
+
+The canonical production URL is `https://stastka.dev/`. If the domain changes, update it in `src/routes/+page.svelte`, `static/robots.txt`, and `static/sitemap.xml`. After deployment, submit the sitemap in Google Search Console and validate the published page with Google's Rich Results Test.
 
 ## Project structure
 

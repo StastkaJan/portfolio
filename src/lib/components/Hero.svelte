@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="portrait">
-		<img src="/avatar.jpg" alt={hero.name} />
+		<img src="/avatar.jpg" alt={hero.name} width="800" height="800" fetchpriority="high" />
 	</div>
 </div>
 

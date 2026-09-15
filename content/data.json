@@ -86,7 +86,7 @@
     {
       "id": "portfolio",
       "title": "Personal Portfolio",
-      "description": "This site. A self-hosted portfolio with a file-based CMS, built on SvelteKit and Svelte 5. Server-rendered, containerized, and deployed behind Caddy with automatic HTTPS.",
+      "description": "This site. A self-hosted portfolio built with SvelteKit and Svelte 5. Prerendered from JSON content, containerized, and served as static files by Caddy with automatic HTTPS.",
       "tech": [
         "SvelteKit",
         "Svelte 5",

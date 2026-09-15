@@ -13,11 +13,48 @@
 
 	let { data }: { data: { portfolio: PortfolioData } } = $props();
 	const { portfolio } = $derived(data);
+	const canonical = 'https://stastka.dev/';
+	const title = $derived(`${portfolio.hero.name} — ${portfolio.hero.title}`);
+	const structuredData = $derived(JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'ProfilePage',
+		'@id': canonical,
+		url: canonical,
+		name: title,
+		description: portfolio.hero.description,
+		mainEntity: {
+			'@type': 'Person',
+			'@id': `${canonical}#person`,
+			name: portfolio.hero.name,
+			jobTitle: portfolio.hero.title,
+			description: portfolio.hero.description,
+			url: canonical,
+			image: `${canonical}avatar.jpg`,
+			sameAs: [portfolio.hero.github, portfolio.hero.linkedin]
+		}
+	}).replace(/</g, '\\u003c'));
 </script>
 
 <svelte:head>
-	<title>{portfolio.hero.name} — {portfolio.hero.title}</title>
+	<title>{title}</title>
 	<meta name="description" content={portfolio.hero.description} />
+	<link rel="canonical" href={canonical} />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content={portfolio.hero.name} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={portfolio.hero.description} />
+	<meta property="og:url" content={canonical} />
+	<meta property="og:image" content={`${canonical}avatar.jpg`} />
+	<meta property="og:image:width" content="800" />
+	<meta property="og:image:height" content="800" />
+	<meta property="og:image:alt" content={`Portrait of ${portfolio.hero.name}`} />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={portfolio.hero.description} />
+	<meta name="twitter:image" content={`${canonical}avatar.jpg`} />
+	<meta name="twitter:image:alt" content={`Portrait of ${portfolio.hero.name}`} />
+	{@html `<script type="application/ld+json">${structuredData}</script>`}
 </svelte:head>
 
 <Header />

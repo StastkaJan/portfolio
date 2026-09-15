@@ -21,7 +21,7 @@
 	} = $props();
 </script>
 
-<section {id} class:reveal use:intersect>
+<section {id} use:intersect={reveal}>
 	<div class="container">
 		{#if label && title}
 			<div class="section-header" class:large>
