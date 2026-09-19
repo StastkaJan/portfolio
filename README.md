@@ -44,7 +44,7 @@ Browser tests run against the production build and verify metadata, crawler file
 
 The app container uses `Caddyfile.static`: fingerprinted Svelte assets are cached for one year, unversioned images for one day, and HTML/data revalidate on each visit. These rules ship with the image independently of the outer blue/green proxy configuration. Small stylesheets are inlined into the prerendered HTML. Project screenshots load lazily; when replacing a screenshot, also export its 640px and 960px WebP variants alongside the original 1280px WebP/JPEG files.
 
-Google Fonts load through a stylesheet preload with `display=fallback` and a no-JavaScript fallback. The heading's Latin/Czech subsets and the body font are preloaded directly in `src/app.html`; recheck those WOFF2 URLs against Google's returned CSS when changing the font request. The portrait uses 400px/800px WebP files in `src/lib/assets`, which Vite fingerprints for long-term caching. Keep `static/avatar.jpg` as the JPEG fallback and social preview; regenerate the WebP files when replacing it.
+Font files remain hosted by Google. Their variable-font declarations are pinned in `src/lib/fonts.css`, inlined into the page, and use `font-display: fallback` with Latin/Czech character coverage. The heading and body preloads in `src/app.html` must use the same URLs as these declarations. This avoids Google's browser-dependent stylesheet selecting different files and duplicating preloaded downloads; it also works without JavaScript. The portrait uses 400px/800px WebP files in `src/lib/assets`, which Vite fingerprints for long-term caching. Keep `static/avatar.jpg` as the JPEG fallback and social preview; regenerate the WebP files when replacing it.
 
 ### SEO
 
