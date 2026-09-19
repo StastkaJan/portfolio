@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
 
-test('font preloads allow first paint before the Google stylesheet arrives', async ({ page }) => {
+test('Google stylesheet preload allows first paint without direct font preloads', async ({ page }) => {
 	let releaseStylesheet!: () => void;
 	const stylesheetReady = new Promise<void>((resolve) => { releaseStylesheet = resolve; });
 	await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
@@ -12,16 +12,12 @@ test('font preloads allow first paint before the Google stylesheet arrives', asy
 	try {
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
 		await expect.poll(() => page.evaluate(() => performance.getEntriesByName('first-contentful-paint').length)).toBe(1);
-		const fonts = page.locator('link[rel="preload"][as="font"]');
-		await expect(fonts).toHaveCount(3);
-		for (const font of await fonts.all()) {
-			await expect(font).toHaveAttribute('crossorigin', '');
-			await expect(font).toHaveAttribute('type', 'font/woff2');
-		}
+		await expect(page.locator('link[rel="preload"][as="font"]')).toHaveCount(0);
+		await expect(page.locator('link[rel="preload"][as="style"]')).toHaveAttribute('href', /fonts\.googleapis\.com.*display=swap/);
 	} finally {
 		releaseStylesheet();
 	}
-	await expect(page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]')).toHaveAttribute('href', /display=fallback/);
+	await expect(page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]')).toHaveAttribute('href', /display=swap/);
 	await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--font-css-loaded').trim())).toBe('1');
 });
 
