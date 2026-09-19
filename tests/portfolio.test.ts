@@ -13,11 +13,11 @@ test('Google stylesheet preload allows first paint without direct font preloads'
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
 		await expect.poll(() => page.evaluate(() => performance.getEntriesByName('first-contentful-paint').length)).toBe(1);
 		await expect(page.locator('link[rel="preload"][as="font"]')).toHaveCount(0);
-		await expect(page.locator('link[rel="preload"][as="style"]')).toHaveAttribute('href', /fonts\.googleapis\.com.*display=fallback/);
+		await expect(page.locator('link[rel="preload"][as="style"]')).toHaveAttribute('href', /fonts\.googleapis\.com.*display=swap/);
 	} finally {
 		releaseStylesheet();
 	}
-	await expect(page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]')).toHaveAttribute('href', /display=fallback/);
+	await expect(page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]')).toHaveAttribute('href', /display=swap/);
 	await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--font-css-loaded').trim())).toBe('1');
 });
 
