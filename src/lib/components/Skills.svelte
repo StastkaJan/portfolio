@@ -11,7 +11,15 @@
 			{#each coreStack as skill}
 				<div class="core-item">
 					<span class="core-name">{skill.name}</span>
-					<span class="bar" aria-label="{skill.level} out of 5">
+					<span
+						class="bar"
+						role="meter"
+						aria-label="{skill.name} proficiency"
+						aria-valuemin="0"
+						aria-valuemax="5"
+						aria-valuenow={skill.level}
+						aria-valuetext="{skill.level} out of 5"
+					>
 						<span class="fill" style="width: {(skill.level / 5) * 100}%"></span>
 					</span>
 				</div>

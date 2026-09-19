@@ -1,6 +1,59 @@
 import { test, expect } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
 
+test('font preloads allow first paint before the Google stylesheet arrives', async ({ page }) => {
+	let releaseStylesheet!: () => void;
+	const stylesheetReady = new Promise<void>((resolve) => { releaseStylesheet = resolve; });
+	await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
+	await page.route('https://fonts.googleapis.com/**', async (route) => {
+		await stylesheetReady;
+		await route.fulfill({ contentType: 'text/css', body: ':root { --font-css-loaded: 1; }' });
+	});
+	try {
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		await expect.poll(() => page.evaluate(() => performance.getEntriesByName('first-contentful-paint').length)).toBe(1);
+		const fonts = page.locator('link[rel="preload"][as="font"]');
+		await expect(fonts).toHaveCount(3);
+		for (const font of await fonts.all()) {
+			await expect(font).toHaveAttribute('crossorigin', '');
+			await expect(font).toHaveAttribute('type', 'font/woff2');
+		}
+	} finally {
+		releaseStylesheet();
+	}
+	await expect(page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]')).toHaveAttribute('href', /display=fallback/);
+	await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--font-css-loaded').trim())).toBe('1');
+});
+
+for (const deviceScaleFactor of [1, 2]) {
+	test(`mobile portrait selects an optimized image at ${deviceScaleFactor}x density`, async ({ browser }) => {
+		const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor });
+		const page = await context.newPage();
+		await page.goto('http://127.0.0.1:4173/');
+		const portrait = page.locator('#hero img');
+		await expect(portrait).toHaveAttribute('fetchpriority', 'high');
+		expect(await portrait.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+		const src = await portrait.evaluate((img: HTMLImageElement) => img.currentSrc);
+		expect(src).toMatch(new RegExp(`/_app/immutable/assets/avatar-${deviceScaleFactor === 1 ? 400 : 800}\\.[^/]+\\.webp$`));
+		const response = await context.request.get(src);
+		expect((await response.body()).length).toBeLessThan(11000);
+		await context.close();
+	});
+}
+
+test('skill ratings expose their names and values to assistive technology', async ({ page }) => {
+	const { coreStack } = JSON.parse(readFileSync('content/data.json', 'utf8'));
+	await page.goto('/');
+	await expect(page.getByRole('meter')).toHaveCount(coreStack.length);
+	for (const skill of coreStack) {
+		const meter = page.getByRole('meter', { name: `${skill.name} proficiency`, exact: true });
+		await expect(meter).toHaveAttribute('aria-valuemin', '0');
+		await expect(meter).toHaveAttribute('aria-valuemax', '5');
+		await expect(meter).toHaveAttribute('aria-valuenow', String(skill.level));
+		await expect(meter).toHaveAttribute('aria-valuetext', `${skill.level} out of 5`);
+	}
+});
+
 test('mobile defers project images and loads smaller variants when scrolled into view', async ({ page }) => {
 	await page.setViewportSize({ width: 390, height: 844 });
 	const projectRequests: string[] = [];
@@ -57,7 +110,11 @@ test('static output contains crawlable content, metadata, and discovery files', 
 test('all portfolio sections remain readable without JavaScript', async ({ browser }) => {
 	const context = await browser.newContext({ javaScriptEnabled: false });
 	const page = await context.newPage();
+	await page.route('https://fonts.googleapis.com/**', (route) => route.fulfill({
+		contentType: 'text/css', body: ':root { --font-css-loaded: 1; }'
+	}));
 	await page.goto('http://127.0.0.1:4173/');
+	await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--font-css-loaded').trim())).toBe('1');
 	for (const id of ['hero', 'about', 'experience', 'projects', 'skills', 'languages', 'contact']) {
 		await expect(page.locator(`#${id}`)).toBeVisible();
 		await expect(page.locator(`#${id}`)).toHaveCSS('opacity', '1');
