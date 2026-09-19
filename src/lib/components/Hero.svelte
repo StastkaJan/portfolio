@@ -2,6 +2,8 @@
 	import type { HeroData } from '$lib/types';
 	import LinkedIn from './icons/LinkedIn.svelte';
 	import GitHub from './icons/GitHub.svelte';
+	import avatar400 from '$lib/assets/avatar-400.webp';
+	import avatar800 from '$lib/assets/avatar-800.webp';
 
 	let { hero }: { hero: HeroData } = $props();
 </script>
@@ -29,9 +31,14 @@
 		</div>
 	</div>
 
-	<div class="portrait">
+	<picture class="portrait">
+		<source
+			type="image/webp"
+			srcset="{avatar400} 400w, {avatar800} 800w"
+			sizes="(max-width: 860px) 300px, (max-width: 1120px) calc((100vw - 128px) * 0.3913), 388px"
+		/>
 		<img src="/avatar.jpg" alt={hero.name} width="800" height="800" fetchpriority="high" />
-	</div>
+	</picture>
 </div>
 
 <style lang="scss">
