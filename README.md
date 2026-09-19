@@ -42,6 +42,8 @@ npm run preview
 
 Browser tests run against the production build and verify metadata, crawler files, and content visibility without JavaScript. CI runs them before deployment.
 
+The app container uses `Caddyfile.static`: fingerprinted Svelte assets are cached for one year, unversioned images for one day, and HTML/data revalidate on each visit. These rules ship with the image independently of the outer blue/green proxy configuration. Small stylesheets are inlined into the prerendered HTML. Project screenshots load lazily; when replacing a screenshot, also export its 640px and 960px WebP variants alongside the original 1280px WebP/JPEG files.
+
 ### SEO
 
 The prerendered page includes its full content, canonical URL, Open Graph and Twitter metadata, and ProfilePage/Person structured data. The existing portrait is used for social previews. `static/robots.txt` advertises `static/sitemap.xml`.

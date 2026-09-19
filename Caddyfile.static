@@ -1,0 +1,15 @@
+:3000 {
+	root * /srv
+	encode zstd gzip
+
+	header /_app/immutable/* Cache-Control "public, max-age=31536000, immutable" {
+		match status 2xx 304
+	}
+	@images path /projects/* /avatar.jpg /favicon.svg
+	header @images Cache-Control "public, max-age=86400" {
+		match status 2xx 304
+	}
+	header ?Cache-Control "no-cache"
+
+	file_server
+}
