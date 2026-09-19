@@ -1,6 +1,23 @@
 import { test, expect } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
 
+test('mobile defers project images and loads smaller variants when scrolled into view', async ({ page }) => {
+	await page.setViewportSize({ width: 390, height: 844 });
+	const projectRequests: string[] = [];
+	page.on('request', (request) => {
+		if (new URL(request.url()).pathname.startsWith('/projects/')) projectRequests.push(request.url());
+	});
+	await page.goto('/');
+	expect(projectRequests).toHaveLength(0);
+	await expect(page.locator('link[rel="stylesheet"][href*="/_app/"]:not([disabled])')).toHaveCount(0);
+	await expect(page.locator('#hero img')).toHaveAttribute('fetchpriority', 'high');
+	for (const img of await page.locator('#projects img').all()) {
+		await img.scrollIntoViewIfNeeded();
+		await expect.poll(() => img.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
+		expect(await img.evaluate((node: HTMLImageElement) => node.currentSrc)).toMatch(/-640\.webp$/);
+	}
+});
+
 test('portfolio page loads with hero content', async ({ page }) => {
 	await page.goto('/');
 	await expect(page.locator('h1')).toContainText('Jan');

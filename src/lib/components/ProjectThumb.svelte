@@ -3,8 +3,12 @@
 </script>
 
 <picture>
-	<source srcset="{src}.webp" type="image/webp" />
-	<img src="{src}.jpg" {alt} />
+	<source
+		srcset="{src}-640.webp 640w, {src}-960.webp 960w, {src}.webp 1280w"
+		sizes="(max-width: 855px) max(378px, calc(100vw - 66px)), (max-width: 1120px) calc((100vw - 100px) / 2), 510px"
+		type="image/webp"
+	/>
+	<img src="{src}.jpg" {alt} width="1280" height="800" loading="lazy" decoding="async" />
 </picture>
 
 <style lang="scss">

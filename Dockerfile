@@ -7,5 +7,6 @@ RUN npx svelte-kit sync && npm run build
 
 FROM caddy:2-alpine
 COPY --from=builder /app/build /srv
+COPY Caddyfile.static /etc/caddy/Caddyfile
 EXPOSE 3000
-CMD ["caddy", "file-server", "--root", "/srv", "--listen", ":3000"]
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
