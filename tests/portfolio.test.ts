@@ -1,39 +1,24 @@
 import { test, expect } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
 
-test('preloaded fonts match inline declarations and do not block first paint', async ({ page }) => {
-	let releaseFonts!: () => void;
-	const fontsReady = new Promise<void>((resolve) => { releaseFonts = resolve; });
-	const stylesheetRequests: string[] = [];
-	await page.route('https://fonts.googleapis.com/**', (route) => {
-		stylesheetRequests.push(route.request().url());
-		return route.abort();
-	});
-	await page.route('https://fonts.gstatic.com/**', async (route) => {
-		await fontsReady;
-		await route.abort();
+test('Google stylesheet preload allows first paint without direct font preloads', async ({ page }) => {
+	let releaseStylesheet!: () => void;
+	const stylesheetReady = new Promise<void>((resolve) => { releaseStylesheet = resolve; });
+	await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
+	await page.route('https://fonts.googleapis.com/**', async (route) => {
+		await stylesheetReady;
+		await route.fulfill({ contentType: 'text/css', body: ':root { --font-css-loaded: 1; }' });
 	});
 	try {
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
 		await expect.poll(() => page.evaluate(() => performance.getEntriesByName('first-contentful-paint').length)).toBe(1);
-		const faces = await page.evaluate(() => Array.from(document.styleSheets)
-			.flatMap((sheet) => Array.from(sheet.cssRules))
-			.filter((rule): rule is CSSFontFaceRule => rule instanceof CSSFontFaceRule)
-			.map((rule) => ({ src: rule.style.getPropertyValue('src'), display: rule.style.getPropertyValue('font-display') })));
-		expect(faces).toHaveLength(6);
-		expect(faces.every((face) => face.display === 'fallback')).toBe(true);
-		const fonts = page.locator('link[rel="preload"][as="font"]');
-		await expect(fonts).toHaveCount(3);
-		for (const font of await fonts.all()) {
-			await expect(font).toHaveAttribute('crossorigin', '');
-			await expect(font).toHaveAttribute('type', 'font/woff2');
-			const url = await font.getAttribute('href');
-			expect(faces.filter((face) => face.src.includes(url!))).toHaveLength(1);
-		}
-		expect(stylesheetRequests).toHaveLength(0);
+		await expect(page.locator('link[rel="preload"][as="font"]')).toHaveCount(0);
+		await expect(page.locator('link[rel="preload"][as="style"]')).toHaveAttribute('href', /fonts\.googleapis\.com.*display=fallback/);
 	} finally {
-		releaseFonts();
+		releaseStylesheet();
 	}
+	await expect(page.locator('link[rel="stylesheet"][href*="fonts.googleapis.com"]')).toHaveAttribute('href', /display=fallback/);
+	await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--font-css-loaded').trim())).toBe('1');
 });
 
 for (const deviceScaleFactor of [1, 2]) {
@@ -121,10 +106,11 @@ test('static output contains crawlable content, metadata, and discovery files', 
 test('all portfolio sections remain readable without JavaScript', async ({ browser }) => {
 	const context = await browser.newContext({ javaScriptEnabled: false });
 	const page = await context.newPage();
+	await page.route('https://fonts.googleapis.com/**', (route) => route.fulfill({
+		contentType: 'text/css', body: ':root { --font-css-loaded: 1; }'
+	}));
 	await page.goto('http://127.0.0.1:4173/');
-	const fonts = await page.evaluate(() => Array.from(document.fonts).map((font) => font.display));
-		expect(fonts).toHaveLength(6);
-		expect(fonts.every((display) => display === 'fallback')).toBe(true);
+	await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--font-css-loaded').trim())).toBe('1');
 	for (const id of ['hero', 'about', 'experience', 'projects', 'skills', 'languages', 'contact']) {
 		await expect(page.locator(`#${id}`)).toBeVisible();
 		await expect(page.locator(`#${id}`)).toHaveCSS('opacity', '1');
